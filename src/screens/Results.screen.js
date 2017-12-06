@@ -1,6 +1,9 @@
 import _ from 'lodash/fp'
 import React from 'react'
-import { Redirect, Link } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
+import Title from '../components/Title'
+import ListResults from '../components/ListResults'
+import ButtonLink from '../components/ButtonLink'
 
 export const getResults = (answers, questions) =>
   answers.map((value, key) => ({
@@ -8,20 +11,7 @@ export const getResults = (answers, questions) =>
     question: questions[key].question,
   }))
 
-const ListResults = ({ results }) => (
-  <ul>
-    {_.map(
-      result => (
-        <li>
-          <span>{result.value ? '+' : '-'}</span> {result.question}
-        </li>
-      ),
-      results
-    )}
-  </ul>
-)
-
-const getScore = _.flow(_.countBy(x => x.value === true), _.get('true'))
+export const getScore = _.flow(_.countBy(x => x.value === true), _.get('true'))
 
 const Results = props => {
   let answers = _.get('location.state.answers', props)
@@ -36,7 +26,7 @@ const Results = props => {
   return (
     <section>
       <header>
-        <h1>You scored</h1>
+        <Title>You scored</Title>
         <h2>
           {getScore(results)} / {results.length}
         </h2>
@@ -45,7 +35,7 @@ const Results = props => {
         <ListResults results={results} />
       </main>
       <footer>
-        <Link to="/quiz">Play again?</Link>
+        <ButtonLink to="/quiz">Play again?</ButtonLink>
       </footer>
     </section>
   )

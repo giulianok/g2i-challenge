@@ -7,11 +7,13 @@ import Results from '../screens/Results.screen'
 // TODO: Replace <Fragment /> with <>
 
 export default () => (
-  <Router>
-    <Fragment>
-      <Route exact path="/" component={Home} />
-      <Route path="/quiz" component={Quiz} />
-      <Route path="/results" component={Results} />
-    </Fragment>
-  </Router>
+  <div className="App">
+    <Router>
+      <Fragment>
+        <Route exact path="/" component={Home} />
+        <Route path="/quiz" component={Quiz} />
+        <Route path="/results" component={Results} />
+      </Fragment>
+    </Router>
+  </div>
 )
