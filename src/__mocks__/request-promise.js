@@ -1,12 +1,3 @@
-/*
-export const __SET_RESULT = () => {}
-
-export default new Promise((resolve, reject) => {
-  console.log('data')
-  resolve()
-})
-*/
-
 let _ok = false
 let _data
 

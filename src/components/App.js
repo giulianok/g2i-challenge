@@ -6,8 +6,18 @@ import Results from '../screens/Results.screen'
 
 // TODO: Replace <Fragment /> with <>
 
+const styles = {
+  wrapper: {
+    flex: '1',
+    display: 'flex',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    maxWidth: '500px',
+  },
+}
+
 export default () => (
-  <div className="App">
+  <div style={styles.wrapper}>
     <Router>
       <Fragment>
         <Route exact path="/" component={Home} />
