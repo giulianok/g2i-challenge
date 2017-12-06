@@ -5,6 +5,7 @@ import Quiz from '../screens/Quiz.screen'
 import Results from '../screens/Results.screen'
 
 // TODO: Replace <Fragment /> with <>
+// TODO: Try styled-components
 
 const styles = {
   wrapper: {
