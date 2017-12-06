@@ -7,7 +7,7 @@ import config from '../config'
 import Question from '../components/Question'
 import Loading from '../components/Loading'
 
-const loadQuestions = async () => {
+export const loadQuestions = async () => {
   try {
     let response = await request({ uri: config.api, json: true })
     let questions = _.map(x => {
@@ -16,7 +16,7 @@ const loadQuestions = async () => {
     }, _.get('results', response))
     return { ok: true, data: questions }
   } catch (e) {
-    console.error(e)
+    if (e) console.error(e)
     return {
       error: true,
       details:
