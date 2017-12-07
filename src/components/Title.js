@@ -1,17 +1,9 @@
-import React from 'react'
+import styled from 'styled-components'
 
-const styles = {
-  title: {
-    textAlign: 'center',
-    fontSize: '1.5em',
-    fontWeight: 'bold',
-    textTransform: 'uppercase',
-    marginBottom: '10px',
-  },
-}
-
-const Title = ({ children }) => <h1 style={styles.title}>{children}</h1>
-
-Title.displayName = 'Title'
-
-export default Title
+export default styled.h1`
+  text-align: center;
+  font-size: 1.5em;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+`

@@ -1,38 +1,33 @@
+import _ from 'lodash/fp'
 import React from 'react'
+import styled from 'styled-components'
 import colors from '../colors'
 
-const styles = {
-  wrapper: {
-    padding: '20px 0',
-    textAlign: 'left',
-  },
-  item: {
-    padding: '10px 0',
-    lineHeight: '1.3',
-    fontSize: '0.8em',
-  },
-  correct: {
-    color: colors.green,
-  },
-  incorrect: {
-    color: colors.red,
-  },
-}
+const List = styled.ul`
+  padding: 20px 0;
+  text-align: left;
+`
 
-const Result = ({ text, type }) => <div style={styles[type]}>{text}</div>
+const Item = styled.li`
+  padding: 10px 0;
+  line-height: 1.3;
+  fontsize: 0.8em;
+`
+
+const Result = styled.div`
+  color: ${props => _.getOr('black', props.color, colors)};
+`
 
 const ListResults = ({ results }) => (
-  <ul style={styles.wrapper}>
+  <List>
     {results.map((result, key) => (
-      <li key={key} style={styles.item}>
-        {result.value ? (
-          <Result type="correct" text={result.question} />
-        ) : (
-          <Result type="incorrect" text={result.question} />
-        )}
-      </li>
+      <Item key={key}>
+        <Result color={result.value ? 'green' : 'red'}>
+          {result.question}
+        </Result>
+      </Item>
     ))}
-  </ul>
+  </List>
 )
 
 ListResults.displayName = 'ListResults'

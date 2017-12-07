@@ -1,36 +1,18 @@
-import React from 'react'
+import styled from 'styled-components'
 import colors from '../colors'
 
-const styles = {
-  button: {
-    display: 'inline-block',
-    padding: '10px 15px',
-    backgroundColor: colors.grayLight,
-    color: 'white',
-    textDecoration: 'none',
-    fontSize: '1em',
-    textTransform: 'uppercase',
-  },
-  buttonGreen: {
-    backgroundColor: colors.green,
-  },
-  buttonRed: {
-    backgroundColor: colors.red,
-  },
+const ChoiceButton = styled.button`
+  display: inline-block;
+  padding: 10px 15px;
+  background-color: ${props => props.color};
+  color: white;
+  text-decoration: none;
+  font-size: 1em;
+  text-transform: uppercase;
+`
+
+ChoiceButton.defaultProps = {
+  color: colors.grayLight,
 }
 
-const ButtonLink = ({ children, color, ...props }) => (
-  <button
-    style={{
-      ...styles.button,
-      ...(color === 'green' ? styles.buttonGreen : styles.buttonRed),
-    }}
-    {...props}
-  >
-    {children}
-  </button>
-)
-
-ButtonLink.displayName = 'ButtonLink'
-
-export default ButtonLink
+export default ChoiceButton
