@@ -1,16 +1,16 @@
 import React from 'react'
+import styled from 'styled-components'
 import config from '../config'
 import Title from '../components/Title'
 import ButtonLink from '../components/ButtonLink'
 
-const styles = {
-  main: {
-    marginTop: '50px',
-  },
-  p: {
-    padding: '50px 0',
-  },
-}
+const Main = styled.main`
+  margin-top: 50px;
+`
+
+const Text = styled.p`
+  padding: 50px 0;
+`
 
 export default () => (
   <section>
@@ -19,13 +19,13 @@ export default () => (
         Welcome to the<br />Trivia Challenge
       </Title>
     </header>
-    <main style={styles.main}>
-      <p style={styles.p}>
+    <Main>
+      <Text>
         You will be presented with<br />
         {config.quiz.limit} True or False questions.
-      </p>
-      <p style={styles.p}>Can you score 100%</p>
-    </main>
+      </Text>
+      <Text>Can you score 100%</Text>
+    </Main>
     <footer>
       <ButtonLink to="quiz">Begin</ButtonLink>
     </footer>

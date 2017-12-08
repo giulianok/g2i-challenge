@@ -1,24 +1,21 @@
 import React from 'react'
+import styled from 'styled-components'
 import Title from './Title'
 import ChoiceButton from './ChoiceButton'
 
-const styles = {
-  question: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    height: '300px',
-    margin: '40px 0',
-    padding: '0 20px',
-    border: 'dashed 2px #ccc',
-  },
-  text: {
-    lineHeight: '1.5',
-  },
-  buttons: {
-    margin: '10px 0',
-  },
-}
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 300px;
+  margin: 40px 0;
+  padding: 0 20px;
+  border: dashed 2px #ccc;
+`
+
+const Buttons = styled.div`
+  margin: 10px 0;
+`
 
 const Question = ({ data, current, limit, onClick }) => (
   <React.Fragment>
@@ -26,17 +23,17 @@ const Question = ({ data, current, limit, onClick }) => (
       <Title>{data.category}</Title>
     </header>
     <main>
-      <div style={styles.question}>
+      <Wrapper>
         <p>{data.question}</p>
-        <div style={styles.buttons}>
+        <Buttons>
           <ChoiceButton color="green" onClick={() => onClick('True')}>
             True
           </ChoiceButton>
           <ChoiceButton color="red" onClick={() => onClick('False')}>
             False
           </ChoiceButton>
-        </div>
-      </div>
+        </Buttons>
+      </Wrapper>
       <div>
         {++current} of {limit}
       </div>

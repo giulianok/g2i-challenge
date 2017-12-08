@@ -35,6 +35,11 @@ class Quiz extends React.Component {
     done: false,
   }
 
+  constructor() {
+    super()
+    this.onAnswer = this.onAnswer.bind(this)
+  }
+
   async componentDidMount() {
     let result = await loadQuestions()
     if (result.ok) {
@@ -47,7 +52,7 @@ class Quiz extends React.Component {
     }
   }
 
-  onClick(answer) {
+  onAnswer(answer) {
     let { questions, currentQuestion, answers, totalOfQuestions } = this.state
     let nextQuestion = currentQuestion + 1
 
@@ -89,7 +94,7 @@ class Quiz extends React.Component {
             data={questions[currentQuestion]}
             current={currentQuestion}
             limit={totalOfQuestions}
-            onClick={this.onClick.bind(this)}
+            onClick={this.onAnswer}
           />
         )}
       </section>
