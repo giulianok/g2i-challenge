@@ -1,9 +1,11 @@
 import _ from 'lodash/fp'
 import React from 'react'
+import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import request from 'request-promise'
 import he from 'he'
 import config from '../config'
+import * as quizActions from '../actions/quiz.actions'
 import Question from '../components/Question'
 import Loading from '../components/Loading'
 
@@ -40,17 +42,21 @@ class Quiz extends React.Component {
     this.onAnswer = this.onAnswer.bind(this)
   }
 
-  async componentDidMount() {
-    let result = await loadQuestions()
-    if (result.ok) {
-      this.setState({
-        questions: result.data,
-        loading: false,
-      })
-    } else {
-      alert(_.getOr('Server Error', 'details', result))
-    }
+  componentDidMount() {
+    // this.props.fetchQuiz()
   }
+
+  // async componentDidMount() {
+  //   let result = await loadQuestions()
+  //   if (result.ok) {
+  //     this.setState({
+  //       questions: result.data,
+  //       loading: false,
+  //     })
+  //   } else {
+  //     alert(_.getOr('Server Error', 'details', result))
+  //   }
+  // }
 
   onAnswer(answer) {
     let { questions, currentQuestion, answers, totalOfQuestions } = this.state
@@ -102,4 +108,12 @@ class Quiz extends React.Component {
   }
 }
 
-export default Quiz
+const mapStateToProps = state => ({
+  questions: state.questions,
+})
+
+const mapDispatchToProps = dispatch => ({
+  fetchQuiz: dispatch(quizActions.loadQuestions),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Quiz)

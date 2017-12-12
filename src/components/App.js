@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
-import { createStore } from 'redux'
 import styled from 'styled-components'
 import Home from '../screens/Home.screen'
 import Quiz from '../screens/Quiz.screen'
