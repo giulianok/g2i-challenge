@@ -1,24 +1,23 @@
 import React, { Fragment } from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { createStore } from 'redux'
+import styled from 'styled-components'
 import Home from '../screens/Home.screen'
 import Quiz from '../screens/Quiz.screen'
 import Results from '../screens/Results.screen'
 
 // TODO: Replace <Fragment /> with <>
-// TODO: Try styled-components
 
-const styles = {
-  wrapper: {
-    flex: '1',
-    display: 'flex',
-    justifyContent: 'center',
-    flexDirection: 'column',
-    maxWidth: '500px',
-  },
-}
+const App = styled.div`
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  max-width: 500px;
+`
 
 export default () => (
-  <div style={styles.wrapper}>
+  <App>
     <Router>
       <Fragment>
         <Route exact path="/" component={Home} />
@@ -26,5 +25,5 @@ export default () => (
         <Route path="/results" component={Results} />
       </Fragment>
     </Router>
-  </div>
+  </App>
 )
