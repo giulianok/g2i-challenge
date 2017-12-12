@@ -1,35 +1,14 @@
-import _ from 'lodash/fp'
 import React from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
-import request from 'request-promise'
-import he from 'he'
 import config from '../config'
-import * as quizActions from '../actions/quiz.actions'
+import * as quiz from '../modules/quiz'
 import Question from '../components/Question'
 import Loading from '../components/Loading'
 
-export const loadQuestions = async () => {
-  try {
-    let response = await request({ uri: config.api, json: true })
-    let questions = _.map(x => {
-      x.question = he.decode(x.question)
-      return x
-    }, _.get('results', response))
-    return { ok: true, data: questions }
-  } catch (e) {
-    if (e) console.error(e)
-    return {
-      error: true,
-      details:
-        'We have some trouble loading the questions. Please try again refreshing the page. Thanks',
-    }
-  }
-}
-
 class Quiz extends React.Component {
   state = {
-    questions: null,
+    xquiz: null,
     loading: true,
     currentQuestion: 0,
     totalOfQuestions: config.quiz.limit,
@@ -43,23 +22,12 @@ class Quiz extends React.Component {
   }
 
   componentDidMount() {
-    // this.props.fetchQuiz()
+    this.props.fetchQuiz()
   }
 
-  // async componentDidMount() {
-  //   let result = await loadQuestions()
-  //   if (result.ok) {
-  //     this.setState({
-  //       questions: result.data,
-  //       loading: false,
-  //     })
-  //   } else {
-  //     alert(_.getOr('Server Error', 'details', result))
-  //   }
-  // }
-
   onAnswer(answer) {
-    let { questions, currentQuestion, answers, totalOfQuestions } = this.state
+    let { currentQuestion, answers, totalOfQuestions } = this.state
+    let { questions } = this.props.quiz
     let nextQuestion = currentQuestion + 1
 
     answers.push(questions[currentQuestion].correct_answer === answer)
@@ -76,32 +44,29 @@ class Quiz extends React.Component {
   }
 
   render() {
-    let {
-      loading,
-      currentQuestion,
-      totalOfQuestions,
-      questions,
-      done,
-      answers,
-    } = this.state
+    let { currentQuestion, totalOfQuestions, done, answers } = this.state
+    let { questions, error } = this.props.quiz
+
     return (
       <section>
-        {loading ? (
-          <Loading />
-        ) : done ? (
+        {done ? (
           <Redirect
             to={{
               pathname: '/results',
               state: { answers, questions },
             }}
           />
-        ) : (
+        ) : questions ? (
           <Question
             data={questions[currentQuestion]}
             current={currentQuestion}
             limit={totalOfQuestions}
             onClick={this.onAnswer}
           />
+        ) : error ? (
+          <div>Error! {error}</div>
+        ) : (
+          <Loading />
         )}
       </section>
     )
@@ -109,11 +74,11 @@ class Quiz extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  questions: state.questions,
+  quiz: state.quiz,
 })
 
 const mapDispatchToProps = dispatch => ({
-  fetchQuiz: dispatch(quizActions.loadQuestions),
+  fetchQuiz: () => dispatch(quiz.loadQuestions()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Quiz)

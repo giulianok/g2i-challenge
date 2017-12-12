@@ -1,7 +1,11 @@
-import { createStore, applyMiddleware } from 'redux'
-import rootReducer from '../reducers/root.reducer'
+import { createStore, applyMiddleware, combineReducers } from 'redux'
 import thunk from 'redux-thunk'
+import { quizReducer } from '../modules/quiz'
+
+const reducers = combineReducers({
+  quiz: quizReducer,
+})
 
 export default function configureStore() {
-  return createStore(rootReducer, applyMiddleware(thunk))
+  return createStore(reducers, applyMiddleware(thunk))
 }

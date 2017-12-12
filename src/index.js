@@ -10,11 +10,8 @@ import './index.css'
 import Home from './screens/Home.screen'
 import Quiz from './screens/Quiz.screen'
 import Results from './screens/Results.screen'
-import * as quizActions from './actions/quiz.actions'
 
 const store = configureStore()
-
-store.dispatch(quizActions.loadQuestions())
 
 const App = styled.div`
   flex: 1;
