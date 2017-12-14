@@ -1,6 +1,8 @@
 import _ from 'lodash/fp'
 import React from 'react'
 import { Redirect } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { resetQuiz } from '../modules/quiz'
 import Title from '../components/Title'
 import ListResults from '../components/ListResults'
 import ButtonLink from '../components/ButtonLink'
@@ -13,10 +15,7 @@ export const getResults = (answers, questions) =>
 
 export const getScore = _.flow(_.countBy(x => x.value === true), _.get('true'))
 
-const Results = props => {
-  let answers = _.get('location.state.answers', props)
-  let questions = _.get('location.state.questions', props)
-
+const Results = ({ answers, questions, resetQuiz }) => {
   if (!_.isArray(answers) || !_.isArray(questions)) {
     return <Redirect to="/" />
   }
@@ -35,7 +34,9 @@ const Results = props => {
         <ListResults results={results} />
       </main>
       <footer>
-        <ButtonLink to="/quiz">Play again?</ButtonLink>
+        <ButtonLink to="/quiz" onClick={resetQuiz}>
+          Play again?
+        </ButtonLink>
       </footer>
     </section>
   )
@@ -43,4 +44,13 @@ const Results = props => {
 
 Results.displayName = 'Results'
 
-export default Results
+const mapStateToProps = state => ({
+  questions: state.quiz.questions,
+  answers: state.quiz.answers,
+})
+
+const mapDispatchToProps = dispatch => ({
+  resetQuiz: () => dispatch(resetQuiz()),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Results)

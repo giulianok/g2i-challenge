@@ -8,11 +8,8 @@ import Loading from '../components/Loading'
 
 class Quiz extends React.Component {
   state = {
-    xquiz: null,
-    loading: true,
     currentQuestion: 0,
     totalOfQuestions: config.quiz.limit,
-    answers: [],
     done: false,
   }
 
@@ -26,11 +23,12 @@ class Quiz extends React.Component {
   }
 
   onAnswer(answer) {
-    let { currentQuestion, answers, totalOfQuestions } = this.state
-    let { questions } = this.props.quiz
+    let { currentQuestion, totalOfQuestions } = this.state
+    let { quiz, pushAnswer } = this.props
+    let { questions } = quiz
     let nextQuestion = currentQuestion + 1
 
-    answers.push(questions[currentQuestion].correct_answer === answer)
+    pushAnswer(questions[currentQuestion].correct_answer === answer)
 
     if (nextQuestion >= totalOfQuestions) {
       this.setState({
@@ -44,16 +42,14 @@ class Quiz extends React.Component {
   }
 
   render() {
-    let { currentQuestion, totalOfQuestions, done, answers } = this.state
+    let { currentQuestion, totalOfQuestions, done } = this.state
     let { questions, error } = this.props.quiz
-
     return (
       <section>
         {done ? (
           <Redirect
             to={{
               pathname: '/results',
-              state: { answers, questions },
             }}
           />
         ) : questions ? (
@@ -79,6 +75,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchQuiz: () => dispatch(quiz.loadQuestions()),
+  pushAnswer: answer => dispatch(quiz.pushAnswer(answer)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Quiz)

@@ -1,5 +1,5 @@
 const quiz = {
-  limit: 10,
+  limit: 2,
   difficulty: 'hard',
   type: 'boolean',
 }
