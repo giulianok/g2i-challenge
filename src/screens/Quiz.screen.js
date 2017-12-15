@@ -73,9 +73,9 @@ const mapStateToProps = state => ({
   quiz: state.quiz,
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapActionsToProp = dispatch => ({
   fetchQuiz: () => dispatch(quiz.loadQuestions()),
   pushAnswer: answer => dispatch(quiz.pushAnswer(answer)),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Quiz)
+export default connect(mapStateToProps, mapActionsToProp)(Quiz)

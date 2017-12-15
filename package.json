@@ -2,6 +2,15 @@
   "name": "g2i-challenge",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "lint": "eslint --ignore-path .gitignore 'src/**/*.js'",
+    "format": "prettier --write 'src/**/*.js'",
+    "flow": "flow"
+  },
   "dependencies": {
     "he": "^1.1.1",
     "lodash": "^4.17.4",
@@ -16,19 +25,12 @@
     "request-promise": "^4.2.2",
     "styled-components": "^2.2.4"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "lint": "eslint --ignore-path .gitignore 'src/**/*.js'",
-    "format": "prettier --write 'src/**/*.js'"
-  },
   "devDependencies": {
     "enzyme": "^3.2.0",
     "enzyme-adapter-react-16": "^1.1.0",
     "eslint": "^4.12.1",
     "eslint-config-smartprocure": "^1.1.0",
+    "flow-bin": "^0.61.0",
     "prettier": "^1.9.0"
   },
   "prettier": {
